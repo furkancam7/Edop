@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Posts</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        /* Sidebar */
+        
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #f4f4f4;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        
+        .logo img {
+            width: 150px;
+            height: auto;
+            margin: 0 auto 40px auto;
+            display: block;
+        }
+        
+        .menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .menu li {
+            margin: 15px 0;
+        }
+        
+        .menu li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1rem;
+            padding: 10px 15px;
+            display: block;
+            border-radius: 8px;
+            transition: background 0.3s, color 0.3s;
+        }
+        
+        .menu li a:hover {
+            background: #007bff;
+            color: white;
+        }
+        
+        .social {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .social a {
+            margin: 0 10px;
+        }
+        
+        .social img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        
+        .social img:hover {
+            transform: scale(1.2);
+        }
+        
+        .sidebar .contact {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+        }
+        /* Main Content */
+        
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: #007bff;
+        }
+        
+        .posts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .post-item {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .post-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .post-item img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .post-content {
+            padding: 15px;
+        }
+        
+        .post-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .post-content p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .post-content a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+        
+        .post-content a:hover {
+            text-decoration: underline;
+        }
+        /* Footer */
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <img src="edop2.png" alt="Edop Dijital Logo">
+        </div>
+        <ul class="menu">
+            <li><a href="index.html">Anasayfa</a></li>
+            <li><a href="hakkımızda.html">Hakkımızda</a></li>
+            <li><a href="projelerimiz.html">Projelerimiz</a></li>
+            <li><a href="İçeriklerimiz.html">İçeriklerimiz</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="iletisim.html">İletişim</a></li>
+        </ul>
+        <div class="social">
+            <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+            <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
+            <a href="#"><img src="twitter-icon.png" alt="Twitter"></a>
+        </div>
+        <div class="contact">
+            <p>0552 718 1 718</p>
+            <p>info@edop.com.tr</p>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <div class="header">
+            <h1>Blog Yazıları</h1>
+        </div>
+        <div class="posts-container">
+            <!-- Post 1 -->
+            <div class="post-item">
+                <img src="pos1.jpg" alt="Eğitsel Oyunların Rolü">
+                <div class="post-content">
+                    <h3>Eğitsel Oyunların Rolü</h3>
+                    <p>Günümüzde, öğrencilerin dikkatini çekmek ve eğitim sürecini daha etkili hale getirmek için eğitsel oyunlar önemli bir rol oynamaktadır.</p>
+                    <a href="#">Devamı</a>
+                </div>
+            </div>
+
+            <!-- Post 2 -->
+            <div class="post-item">
+                <img src="pos2.jpg" alt="Eğitimde Derin Öğrenmenin Gücü">
+                <div class="post-content">
+                    <h3>Eğitimde Derin Öğrenmenin Gücü</h3>
+                    <p>Zihinsel kalıcılık, öğrenilen bilgilerin uzun vadeli hafızada tutulması ve etkili bir şekilde hatırlanabilmesi olarak tanımlanabilir.</p>
+                    <a href="#">Devamı</a>
+                </div>
+            </div>
+
+            <!-- Post 3 -->
+            <div class="post-item">
+                <img src="pos3.jpg" alt="Bilginin Canlandırıcı Gücü">
+                <div class="post-content">
+                    <h3>Bilginin Canlandırıcı Gücü</h3>
+                    <p>Gelişen teknolojiyle birlikte, eğitimde kullanılan yöntemler de evrim geçiriyor. Görsel öğelerin ötesine geçerek, sesin eğitimdeki rolü önem kazanıyor.</p>
+                    <a href="#">Devamı</a>
+                </div>
+            </div>
+
+            <!-- Post 4 -->
+            <div class="post-item">
+                <img src="pos4.png" alt="Eğitsel Hizmetlerde Uzman Çözümler">
+                <div class="post-content">
+                    <h3>Eğitsel Hizmetlerde Uzman Çözümler</h3>
+                    <p>Firmamız, dijital içerik geliştirme, seslendirme hizmetleri, eğitsel oyunlar ve çevrim içi kurslar gibi alanlarda uzmanlaşmıştır.</p>
+                    <a href="#">Devamı</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>© Copyright 2024 | Edop Dijital | Tüm Hakları Saklıdır</p>
+        </div>
+    </div>
+</body>
+
+</html>

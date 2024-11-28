@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hece Tamamlama</title>
+    <style>
+        body {
+            background-image: url('balon.jpg');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f8ff;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-size: 64px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin: 20px 0;
+            font-family: 'Comic Sans MS', sans-serif;
+        }
+        
+        #start-button,
+        #submit-button,
+        #restart-button {
+            background: linear-gradient(to right, #ff7eb3, #ff758c);
+            color: white;
+            font-size: 24px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        #start-button:hover,
+        #submit-button:hover,
+        #restart-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        #game-container {
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(200, 200, 255, 0.8));
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="background">
+        <h1>HECE TAMAMLAMA</h1>
+        <p>Heceleri doğru tahmin ederek soruları cevaplayın.</p>
+        <div id="game-container">
+            <div id="start-screen">
+                <button id="start-button">BAŞLA</button>
+            </div>
+            <div id="game-screen" style="display: none;">
+                <div id="timer">Süre: <span id="time">60</span> saniye</div>
+                <div id="score">Puan: <span id="points">0</span></div>
+                <div id="question">
+                    <img id="word-image" src="" alt="Kelime Resmi">
+                    <div id="syllable-display">
+                        <span id="first-syllable"></span>
+                        <span id="second-syllable">______</span>
+                        <button id="play-sound-button">▶️</button>
+                    </div>
+                    <input type="text" id="user-input" placeholder="İkinci heceyi girin">
+                    <button id="submit-button">Gönder</button>
+                </div>
+                <div id="message"></div>
+            </div>
+            <div id="star-animation"></div>
+            <div id="end-screen" style="display: none;">
+                <h2 id="end-message"></h2>
+                <button id="restart-button">Yeniden Oyna</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const words = [{
+            word: "Adam",
+            image: "adam.png",
+            syllables: ["A", "dam"],
+            sound: "adam.mp3"
+        }, {
+            word: "Anneanne",
+            image: "anneanne.png",
+            syllables: ["Anne", "anne"],
+            sound: "Anneanne.mp3"
+        }, {
+            word: "Askı",
+            image: "aski.png",
+            syllables: ["As", "kı"],
+            sound: "askı.mp3"
+        }, ];
+
+        let currentWord;
+        let score = 0;
+        let timeLeft = 60;
+        let timer;
+
+        const startButton = document.getElementById("start-button");
+        const restartButton = document.getElementById("restart-button");
+        const submitButton = document.getElementById("submit-button");
+        const gameScreen = document.getElementById("game-screen");
+        const startScreen = document.getElementById("start-screen");
+        const endScreen = document.getElementById("end-screen");
+        const wordImage = document.getElementById("word-image");
+        const firstSyllableSpan = document.getElementById("first-syllable");
+        const secondSyllableSpan = document.getElementById("second-syllable");
+        const userInput = document.getElementById("user-input");
+        const messageDiv = document.getElementById("message");
+        const timeSpan = document.getElementById("time");
+        const pointsSpan = document.getElementById("points");
+        const endMessage = document.getElementById("end-message");
+
+        startButton.addEventListener("click", startGame);
+        restartButton.addEventListener("click", restartGame);
+        submitButton.addEventListener("click", checkAnswer);
+
+        function startGame() {
+            startScreen.style.display = "none";
+            gameScreen.style.display = "block";
+            score = 0;
+            timeLeft = 60;
+            pointsSpan.textContent = score;
+            timeSpan.textContent = timeLeft;
+            nextQuestion();
+        }
+
+        function restartGame() {
+            endScreen.style.display = "none";
+            gameScreen.style.display = "block";
+            score = 0;
+            timeLeft = 60;
+            pointsSpan.textContent = score;
+            timeSpan.textContent = timeLeft;
+            nextQuestion();
+        }
+
+        function nextQuestion() {
+            currentWord = words[Math.floor(Math.random() * words.length)];
+            wordImage.src = currentWord.image;
+            firstSyllableSpan.textContent = currentWord.syllables[0];
+        }
+
+        function checkAnswer() {
+            const userAnswer = userInput.value.trim();
+            if (userAnswer === currentWord.syllables[1]) {
+                score++;
+            }
+        }
+    </script>
+</body>
+
+</html>

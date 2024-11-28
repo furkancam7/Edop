@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eğitsel Oyunlar</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #ebe7e7;
+            color: #333;
+        }
+        
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #f4f4f4;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        
+        .logo img {
+            width: 150px;
+            height: auto;
+            margin: 5 auto 40px auto;
+            display: block;
+        }
+        
+        .menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .menu li {
+            margin: 15px 0;
+        }
+        
+        .menu li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1rem;
+            padding: 10px 15px;
+            display: block;
+            border-radius: 8px;
+            transition: background 0.3s, color 0.3s;
+        }
+        
+        .menu li a:hover {
+            background: #007bff;
+            color: white;
+        }
+        
+        .social {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .social a {
+            margin: 0 10px;
+        }
+        
+        .social img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        
+        .social img:hover {
+            transform: scale(1.2);
+        }
+        
+        .sidebar .contact {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+        }
+        
+        .content {
+            margin-left: 270px;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(90deg, rgba(0, 123, 255, 0.8), rgba(0, 123, 255, 0.6));
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+            position: relative;
+        }
+        
+        .header::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            z-index: 1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            z-index: 1;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        .games-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .game-item {
+            display: flex;
+            align-items: center;
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .game-image {
+            width: 150px;
+            height: auto;
+            margin-right: 20px;
+            border-radius: 5px;
+        }
+        
+        .game-description {
+            flex: 1;
+        }
+        
+        .game-description h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .game-description p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        
+        .game-link {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        
+        .game-link:hover {
+            background-color: #0056b3;
+        }
+        
+        .button {
+            background: linear-gradient(90deg, rgba(0, 123, 255, 1), rgba(0, 200, 255, 1));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(90deg, rgba(0, 150, 255, 1), rgba(0, 220, 255, 1));
+        }
+        
+        .button:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="edop2.png" alt="Edop Dijital Logo">
+        </div>
+
+        <ul class="menu">
+            <li><a href="index.html">Anasayfa</a></li>
+            <li><a href="hakkımızda.html">Hakkımızda</a></li>
+            <li><a href="projelerimiz.html">Projelerimiz</a></li>
+            <li><a href="İçeriklerimiz.html">İçeriklerimiz</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="iletisim.html">İletişim</a></li>
+        </ul>
+        <div class="social">
+            <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+            <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
+            <a href="#"><img src="twitter-icon.png" alt="Twitter"></a>
+        </div>
+        <div class="contact">
+            <p>0552 718 1 718</p>
+            <p>info@edop.com.tr</p>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="header">
+            <h1>Eğitsel Oyunlar</h1>
+        </div>
+        <div class="games-container">
+            <!-- Game 1 -->
+            <div class="game-item">
+                <img src="hece12.jpeg" alt="Hece Tamamlama Oyunu" class="game-image">
+                <div class="game-description">
+                    <h3>Hece Tamamlama Oyunu</h3>
+                    <p>İlk hecesi verilen kelimenin ikinci hecesini bildirmeyi amaçlayan oyun hem öğretici hem de keyifli bir deneyim sunuyor.</p>
+                    <button onclick="location.href='heceoyunu/h.html'" class="button">Oyna</button>
+                </div>
+            </div>
+
+            <!-- Game 2 -->
+            <div class="game-item">
+                <img src="unnamed.png" alt="Kelime Bulmaca Oyunu" class="game-image">
+                <div class="game-description">
+                    <h3>Kelime Bulmaca Oyunu</h3>
+                    <p>Karışık şekilde verilen harflerden anlamlı ve doğru kelime bulunmasını amaçlayan oyun öğretici ve keyifli bir deneyim sunuyor.</p>
+                    <button onclick="location.href='kelimeoyunu/h.html'" class="button">Oyna</button>
+                </div>
+            </div>
+        </div>
+        <div class="game-item">
+            <img src="togg.png" alt="Togg Oyunu" class="game-image">
+            <div class="game-description">
+                <h3>Togg Oyunu</h3>
+                <p>Matematik sorularıyla dolu bu oyun interaktif görevler sayesinde dört işlemi öğrenmeyi eğlenceli hale getiriyor.</p>
+                <button onclick="location.href=''" class="button">Oyna</button>
+            </div>
+
+        </div>
+        <div class="game-item">
+            <img src="bilge.png" alt="Bilgece Köy" class="game-image">
+            <div class="game-description">
+                <h3>Bilgece Köy</h3>
+                <p>Genel kültür sorularını cevaplayarak köyünüzü inşa edin ve geliştirin! Her doğru cevapla yeni yapılar ve kaynaklar kazanın, bilgi ve stratejiyle kendi köyünüzü yaratın. Eğlenceli ve öğretici bu oyunda hem zekanızı test edin hem de sanal
+                    dünyada kendi köyünüzü kurun!”</p>
+                <button onclick="location.href=''" class="button">Oyna</button>
+            </div>
+
+</body>
+
+</html>

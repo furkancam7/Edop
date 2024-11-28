@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelime Avcısı</title>
+    <style>
+        body {
+            background-image: url('a.jpg');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            font-family: 'Comic Sans MS', Arial, sans-serif;
+            margin: 0;
+        }
+        
+        h1 {
+            font-size: 48px;
+            color: #FF5722;
+            margin-top: 50px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        button {
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            color: #fff;
+            padding: 15px 30px;
+            font-size: 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        #timer,
+        #score {
+            font-size: 24px;
+            margin: 20px;
+        }
+        
+        #message {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+        
+        #end-screen h2 {
+            font-size: 36px;
+            color: #333;
+            margin-top: 50px;
+        }
+        
+        #scrambled-word,
+        #message {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 2px solid #ff7eb3;
+            border-radius: 15px;
+            padding: 10px 15px;
+            display: inline-block;
+            margin-top: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        #user-input {
+            background-color: #fff;
+            border: 2px solid #FF5722;
+            border-radius: 20px;
+            padding: 10px 15px;
+            font-size: 18px;
+            color: #333;
+            width: 300px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        #user-input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.8);
+        }
+        
+        #user-input::placeholder {
+            color: #888;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>💡 Kelime Avcısı: Eğlenceli Bulmaca Oyunu! 🎉</h1>
+        <div id="game">
+            <h4>Hadi bu harflerden anlamlı bir kelime oluştur! 🧩</h4>
+            <p id="scrambled-word">Hadi bu harflerden anlamlı bir kelime oluştur! 🧩</p>
+
+            <input type="text" id="user-input" placeholder="Kelimeyi yaz..." />
+            <button id="check-button">Kontrol Et</button>
+            <p id="message"></p>
+            <p>Skor: <span id="score">0</span> ⭐</p>
+            <h5>İpucunda kelimenin resmi ve okunuş sesi bulunmaktadır.</h5>
+            <button id="hint-button">🤔 İpucu Al</button>
+            <div id="hint" style="display: none;">
+                <img id="hint-image" src="" alt="İpucu Resmi" />
+                <audio id="hint-audio" controls></audio>
+            </div>
+            <button id="next-level-button" style="display: none;">Sonraki Seviye</button>
+        </div>
+    </div>
+    <script>
+        const words = [{
+            word: "balık",
+            image: "fish.png",
+            audio: "Balık.mp3"
+        }, {
+            word: "balkon",
+            image: "balkon.png",
+            audio: "balkon.mp3"
+        }, {
+            word: "bardak",
+            image: "bardak.png",
+            audio: "bardak.mp3"
+        }, {
+            word: "balta",
+            image: "balta.png",
+            audio: "balta.mp3"
+        }, {
+            word: "bahçe",
+            image: "garden.png",
+            audio: "bahçe.mp3"
+        }, {
+            word: "burun",
+            image: "nose.png",
+            audio: "burun.mp3"
+        }, {
+            word: "bisiklet",
+            image: "bicycle.png",
+            audio: "bisiklet.mp3"
+        }, {
+            word: "bebek",
+            image: "baby.png",
+            audio: "bebek.mp3"
+        }, {
+            word: "bıyık",
+            image: "bıyık.png",
+            audio: "bıyık.mp3"
+        }, {
+            word: "beyin",
+            image: "brain.png",
+            audio: "beyin.mp3"
+        }, ];
+
+        let currentWord = {};
+        let score = 0;
+
+        const scrambledWordElement = document.getElementById("scrambled-word");
+        const userInput = document.getElementById("user-input");
+        const checkButton = document.getElementById("check-button");
+        const messageElement = document.getElementById("message");
+        const scoreElement = document.getElementById("score");
+        const hintButton = document.getElementById("hint-button");
+        const hintElement = document.getElementById("hint");
+        const hintImage = document.getElementById("hint-image");
+        const hintAudio = document.getElementById("hint-audio");
+        const nextLevelButton = document.getElementById("next-level-button");
+
+        function shuffleWord(word) {
+            return word.split("").sort(() => 0.5 - Math.random()).join("");
+        }
+
+        function launchConfetti() {
+            const duration = 1 * 1000;
+            const end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: {
+                        x: 0
+                    },
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: {
+                        x: 1
+                    },
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+        }
+
+        function startGame() {
+            currentWord = words[Math.floor(Math.random() * words.length)];
+            scrambledWordElement.textContent = shuffleWord(currentWord.word);
+            userInput.value = "";
+            messageElement.textContent = "";
+            hintElement.style.display = "none";
+            hintImage.src = "";
+            hintAudio.src = "";
+            nextLevelButton.style.display = "none";
+        }
+
+        checkButton.addEventListener("click", () => {
+            const userAnswer = userInput.value.toLowerCase();
+            if (userAnswer === currentWord.word) {
+                messageElement.textContent = "Bravo! Doğru bildin! 🎊";
+                messageElement.className = "correct";
+                messageElement.style.color = "green";
+                score++;
+                scoreElement.textContent = score;
+                nextLevelButton.style.display = "inline-block";
+
+                launchConfetti();
+                correctSound.play();
+            } else {
+                messageElement.textContent = "Yanlış cevap... Bir daha dene! 😅";
+                messageElement.className = "wrong";
+                messageElement.style.color = "red";
+
+                wrongSound.play();
+            }
+        });
+
+        hintButton.addEventListener("click", () => {
+            hintImage.src = currentWord.image;
+            hintAudio.src = currentWord.audio;
+            hintElement.style.display = "block";
+        });
+
+        nextLevelButton.addEventListener("click", startGame);
+
+        startGame();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+</body>
+
+</html>
